@@ -4,9 +4,9 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "db:push": "dotenv -e .env.local -- prisma db push",
-    "db:studio": "dotenv -e .env.local -- prisma studio",
-    "postinstall": "prisma generate"
+    "db:push": "dotenv -e .env.local -- pnpm dlx prisma db push",
+    "db:studio": "dotenv -e .env.local -- pnpm dlx prisma studio",
+    "postinstall": "pnpm dlx prisma generate"
   },
   "type": "module",
   "private": true,
