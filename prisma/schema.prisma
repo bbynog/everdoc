@@ -10,11 +10,44 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Post {
-    id        Int      @id @default(autoincrement())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+model Condition {
+    id                Int                @id @default(autoincrement())
+    name              String
+    diagnosticMetrics DiagnosticMetric[]
+}
 
-    @@index([name])
+model DiagnosticMetric {
+    id           Int         @id @default(autoincrement())
+    name         String
+    oruSonicCode String?
+    diagnostic   Diagnostic? @relation(fields: [diagnosticId], references: [id])
+
+    diagnosticGroups DiagnosticGroup[]
+    oruSonicUnits    String?
+    units            String?
+    minAge           Int?
+    maxAge           Int?
+    gender           String            @default("Any")
+    standardLower    Float?
+    standardHigher   Float?
+    everlabLower     Float?
+    everlabHigher    Float?
+    Condition        Condition?        @relation(fields: [conditionId], references: [id])
+    conditionId      Int?
+    diagnosticId     Int?
+}
+
+model Diagnostic {
+    id                Int                @id @default(autoincrement())
+    name              String
+    diagnosticMetrics DiagnosticMetric[]
+    diagnosticGroups  DiagnosticGroup[]
+}
+
+model DiagnosticGroup {
+    id               Int                @id @default(autoincrement())
+    name             String
+    diagnostic       Diagnostic?        @relation(fields: [diagnosticId], references: [id])
+    diagnosticMetric DiagnosticMetric[]
+    diagnosticId     Int?
 }
