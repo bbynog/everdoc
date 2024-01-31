@@ -9,7 +9,7 @@ export default function HomePage() {
         <h1 className='text-xl font-semibold'>Welcome to EverDoc</h1>
         <br></br>
       </section>
-      <section className=''>
+      <section>
         <OruCard />
       </section>
     </main>

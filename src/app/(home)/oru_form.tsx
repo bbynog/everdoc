@@ -8,25 +8,24 @@ import { useFormState } from 'react-dom';
 
 const OruForm = () => {
   const [oruFile, setOruFile] = useState<File | null>(null);
-  console.log('oruFile', oruFile);
   const [response, parseOru] = useFormState<OruParseInterface, FormData>(
     parseOruAction,
     {
-      status: null,
       data: null,
+      success: false,
     },
   );
-
-  console.log('response', response);
 
   return (
     <form
       className='flex flex-col gap-4'
       action={async (formData) => {
+        console.log('oruFile', oruFile);
         if (!oruFile) {
           return;
         }
         formData.append('oru', oruFile);
+        console.log('oruFile', oruFile);
         parseOru(formData);
       }}
     >
