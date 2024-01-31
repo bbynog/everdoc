@@ -6,8 +6,6 @@ const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;
 };
 
-console.log('env', env);
-
 export const db =
   globalForPrisma.prisma ??
   new PrismaClient({

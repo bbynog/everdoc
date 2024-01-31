@@ -4,14 +4,15 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "db:push": "prisma db push",
-    "db:studio": "prisma studio",
+    "db:push": "dotenv -e .env.local -- prisma db push",
+    "db:studio": "dotenv -e .env.local -- prisma studio",
     "postinstall": "prisma generate"
   },
   "type": "module",
   "private": true,
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
+    "@manhydra/hl7-parser": "^1.2.4",
     "@prisma/client": "^5.6.0",
     "@radix-ui/react-alert-dialog": "^1.0.5",
     "@radix-ui/react-checkbox": "^1.0.4",

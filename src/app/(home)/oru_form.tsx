@@ -20,12 +20,11 @@ const OruForm = () => {
     <form
       className='flex flex-col gap-4'
       action={async (formData) => {
-        console.log('oruFile', oruFile);
         if (!oruFile) {
           return;
         }
         formData.append('oru', oruFile);
-        console.log('oruFile', oruFile);
+
         parseOru(formData);
       }}
     >

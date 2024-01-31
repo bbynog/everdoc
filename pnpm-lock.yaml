@@ -8,6 +8,9 @@ dependencies:
   '@hookform/resolvers':
     specifier: ^3.3.4
     version: 3.3.4(react-hook-form@7.49.3)
+  '@manhydra/hl7-parser':
+    specifier: ^1.2.4
+    version: 1.2.4
   '@prisma/client':
     specifier: ^5.6.0
     version: 5.9.0
@@ -216,6 +219,10 @@ packages:
       '@jridgewell/resolve-uri': 3.1.1
       '@jridgewell/sourcemap-codec': 1.4.15
     dev: true
+
+  /@manhydra/hl7-parser@1.2.4:
+    resolution: {integrity: sha512-P8/a9YsaSJeXfyDCFiZuY2fU+Vtx7SOZkSipRmysSJ06csHxDPeOoT02erw8eTf9Z7LkZ21cGMzZNtKKa8T5Zg==}
+    dev: false
 
   /@neondatabase/serverless@0.7.2:
     resolution: {integrity: sha512-wU3WA2uTyNO7wjPs3Mg0G01jztAxUxzd9/mskMmtPwPTjf7JKWi9AW5/puOGXLxmZ9PVgRFeBVRVYq5nBPhsCg==}
