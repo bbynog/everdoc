@@ -19,7 +19,7 @@ const parseOru = async (
     const hl7Parser = new Hl7Parser();
     const hl7Model = hl7Parser.getHl7Model(oruFormDataText);
 
-    // console.log(JSON.stringify(hl7Model, null, 4));
+    // // console.log(JSON.stringify(hl7Model, null, 4));
 
     return {
       data: { oru: JSON.stringify(hl7Model) },
