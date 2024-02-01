@@ -6,48 +6,66 @@ generator client {
 }
 
 datasource db {
-    provider = "postgresql"
-    url      = env("POSTGRES_PRISMA_URL")
+    provider  = "postgresql"
+    url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
+    directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
 model Diagnostic {
-    id                Int                @id @default(autoincrement())
-    name              String
-    diagnosticMetrics DiagnosticMetric[]
-    diagnosticGroups  DiagnosticGroup[]
+    id                Int    @id @default(autoincrement())
+    name              String @unique
+    diagnosticMetrics String
+    diagnosticGroups  String
+
+    DiagnosticMetric DiagnosticMetric[]
+
+    DiagnosticGroup   DiagnosticGroup? @relation(fields: [diagnosticGroupId], references: [id])
+    diagnosticGroupId Int?
+}
+
+model DiagnosticMetric {
+    id   Int    @id @default(autoincrement())
+    name String @unique
+
+    oruSonicCode String?
+
+    diagnostic Diagnostic? @relation(fields: [diagnosticId], references: [id])
+
+    diagnosticGroups DiagnosticGroup[] @relation("DiagnosticMetricToDiagnosticGroup")
+
+    oruSonicUnits String?
+    units         String?
+
+    minAge Int?
+    maxAge Int?
+
+    gender String @default("Any")
+
+    standardLower  Float?
+    standardHigher Float?
+
+    everlabLower  Float?
+    everlabHigher Float?
+
+    DiagnosticGroup   DiagnosticGroup?
+    diagnosticGroupId Int?
+
+    Condition    Condition? @relation(fields: [conditionId], references: [id])
+    conditionId  Int?
+    diagnosticId Int?
+}
+
+model DiagnosticGroup {
+    id                 Int                @id @default(autoincrement())
+    name               String             @unique
+    diagnosticMetrics  DiagnosticMetric[] @relation("DiagnosticMetricToDiagnosticGroup")
+    diagnostics        Diagnostic[]
+    DiagnosticMetric   DiagnosticMetric?  @relation(fields: [diagnosticMetricId], references: [id])
+    diagnosticMetricId Int?               @unique
 }
 
 model Condition {
     id                Int                @id @default(autoincrement())
-    name              String
+    name              String             @unique
     diagnosticMetrics DiagnosticMetric[]
-}
-
-model DiagnosticMetric {
-    id           Int         @id @default(autoincrement())
-    name         String
-    oruSonicCode String?
-    diagnostic   Diagnostic? @relation(fields: [diagnosticId], references: [id])
-
-    diagnosticGroups DiagnosticGroup[]
-    oruSonicUnits    String?
-    units            String?
-    minAge           Int?
-    maxAge           Int?
-    gender           String            @default("Any")
-    standardLower    Float?
-    standardHigher   Float?
-    everlabLower     Float?
-    everlabHigher    Float?
-    Condition        Condition?        @relation(fields: [conditionId], references: [id])
-    conditionId      Int?
-    diagnosticId     Int?
-}
-
-model DiagnosticGroup {
-    id               Int                @id @default(autoincrement())
-    name             String
-    diagnostic       Diagnostic?        @relation(fields: [diagnosticId], references: [id])
-    diagnosticMetric DiagnosticMetric[]
-    diagnosticId     Int?
 }
